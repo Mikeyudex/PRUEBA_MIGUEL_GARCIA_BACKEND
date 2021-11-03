@@ -2,9 +2,9 @@
     definition: {
         openapi: "3.0.0",
         info: {
-           title: "Backend Users API",
+           title: "Projectify",
            version: "1.0.0",
-           description: "Backend Users API"
+           description: "Projectify"
         },
         servers: [
             {
@@ -12,7 +12,7 @@
             }
         ]
     },
-    apis: ["./dist/routes/*.js", "./dist/index.js"]
+    apis: ["./dist/routes/*.js", "./dist/index.js", "./build/routes/*.js", "./build/index.js"]
 }
 
 module.exports = options

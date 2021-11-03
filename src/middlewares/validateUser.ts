@@ -1,14 +1,15 @@
-import mongoose from "mongoose";
-import Users from '../models/Users'
+import DaoUsers from '../dao/Users.dao'
+const users = new DaoUsers()
 
+
+//Valida si el usuario existe en la base de datos
 const validateUser = async (username: string) => {
     return new Promise<void>(async (resolve, reject) => {
 
         try {
-            let response = await Users.findOne({ username: username }).exec();
-            
-            if(response != null) {
-                
+            const resultado = await users.getUserByUsername(username)
+
+            if(resultado != null) {
                 resolve()
             } else {
                 reject("Lo sentimos no existe el usuario.")

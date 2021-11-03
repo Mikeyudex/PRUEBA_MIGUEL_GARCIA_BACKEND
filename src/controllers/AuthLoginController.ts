@@ -1,28 +1,35 @@
+import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 const configs = require('../../index.json')
 const ValidateUser = require('../middlewares/validateUser')
 
-
-const AuthLogin = async (req: any, res: any) => {
+/** 
+     * Autentica al usuario, devolviendo un token
+     * @param {Request} req
+     * @param {Response} res
+    */ 
+const AuthLogin = async (req: Request, res: Response) => {
 
     try {
-        
         const { username } = req.body
 
-        await ValidateUser(username)
+        if (username == undefined || null || username.length == 0) {
 
-        const token = jwt.sign({ username }, configs.SecretKey, {
-            expiresIn: 1440
-        }); //Generar token para el usuario
+            res.status(500).json({ error: true, errorMessage: "Debe ingresar un username" })
+        } else {
+            
+            await ValidateUser(username)
 
-        res.status(200).json({
-            message: 'Autenticación correcta',
-            token
-        });
+            const token = jwt.sign({ username }, configs.SecretKey); //Generar token para el usuario
 
+            res.status(200).json({
+                message: 'Autenticación correcta',
+                token
+            });
+        }
     } catch (error) {
         console.log(error)
-        res.status(500).json({error: true, errorMessage: error})
+        res.status(500).json({ error: true, errorMessage: error })
     }
 
 }

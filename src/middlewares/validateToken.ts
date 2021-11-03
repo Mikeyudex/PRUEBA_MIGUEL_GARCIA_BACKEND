@@ -1,6 +1,6 @@
 
 
-//Validar si el usuario ingresa Token 
+//Valida si el usuario ingresa Token 
 const ValidarToken = (req:any, res:any, next:any) => {
     const bearerHeader = req.headers['authorization'];
     
